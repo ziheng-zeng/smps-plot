@@ -1,4 +1,4 @@
-# smps-plot
+# kigali-smps-analysis
 
 Code-only Kigali SMPS particle size distribution plotting and analysis workflow.
 
