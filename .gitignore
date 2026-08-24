@@ -1,0 +1,44 @@
+__pycache__/
+*.py[cod]
+*$py.class
+
+.venv/
+venv/
+env/
+.env
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+.ipynb_checkpoints/
+
+.DS_Store
+Thumbs.db
+desktop.ini
+*.Zone.Identifier
+
+*.exe
+*.msi
+*.dll
+
+.agents/
+.codex/
+
+# Local data and generated products are intentionally not tracked.
+.gitattributes
+DATA_MANIFEST.md
+Aim.ini
+*.S80
+*.s80
+*.p80
+*.P80
+*.p72
+*.P72
+
+final files selected/
+merged outputs/
+outputs/
+figures/
+examples/
+met data/
+other data/
