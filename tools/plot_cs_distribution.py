@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import argparse
 from pathlib import Path
 
 import matplotlib.dates as mdates
@@ -115,16 +116,26 @@ def plot_distribution(scans: pd.DataFrame, daily: pd.DataFrame, output_path: Pat
     plt.close(fig)
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Plot campaign condensation-sink distributions from contour_CS scan outputs."
+    )
+    parser.add_argument("input_dir", nargs="?", type=Path, default=INPUT_DIR)
+    parser.add_argument("--output", type=Path, default=OUTPUT_DIR)
+    return parser.parse_args()
+
+
 def main() -> int:
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    scans = load_scan_cs(INPUT_DIR)
+    args = parse_args()
+    args.output.mkdir(parents=True, exist_ok=True)
+    scans = load_scan_cs(args.input_dir)
     daily = daily_summary(scans)
-    scans.to_csv(OUTPUT_DIR / "cs_scan_distribution_data.csv", index=False)
-    daily.to_csv(OUTPUT_DIR / "cs_daily_distribution_summary.csv", index=False)
-    plot_distribution(scans, daily, OUTPUT_DIR / "cs_daily_raw_hour_colored.png")
-    print(OUTPUT_DIR / "cs_daily_raw_hour_colored.png")
-    print(OUTPUT_DIR / "cs_daily_distribution_summary.csv")
-    print(OUTPUT_DIR / "cs_scan_distribution_data.csv")
+    scans.to_csv(args.output / "cs_scan_distribution_data.csv", index=False)
+    daily.to_csv(args.output / "cs_daily_distribution_summary.csv", index=False)
+    plot_distribution(scans, daily, args.output / "cs_daily_raw_hour_colored.png")
+    print(args.output / "cs_daily_raw_hour_colored.png")
+    print(args.output / "cs_daily_distribution_summary.csv")
+    print(args.output / "cs_scan_distribution_data.csv")
     return 0
 
 
